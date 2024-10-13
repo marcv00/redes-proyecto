@@ -34,8 +34,7 @@ print(blue + bold+"""
 ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ██║  ██║██████╔╝╚██████╔╝██║  ██║██║  ██║███████║
  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 """ + blue + bold + """
-================================================================================================================                                                                                                      
-""")
+================================================================================================================""")
 
 # Solicitar string a hashear
 hash_value = input(""" 
@@ -53,14 +52,10 @@ print(yellow + bold + """
 hashes = generate_hashes(hash_value)
 
 # Muestra los resultados
-print(yellow + "┌───────────[*] MD5:    " + purple + hashes['MD5'])
-print(red + "|" + lgreen + "───────────[*] SHA1:   " + purple + hashes['SHA1'])
-print(red + "|" + lgreen + "───────────[*] SHA224: " + purple + hashes['SHA224'])
-print(red + "|" + lgreen + "───────────[*] SHA256: " + purple + hashes['SHA256'])
-print(red + "|" + lgreen + "───────────[*] SHA384: " + purple + hashes['SHA384'])
-print(yellow + "└───────────[*] SHA512: " + purple + hashes['SHA512'])
+print(lgreen + "┌───────────[*] MD5:          " + purple + hashes['MD5'])
+print(lgreen + "|" + lgreen + "───────────[*] SHA256:       " + purple + hashes['SHA256'])
+print(lgreen + "|" + lgreen + "───────────[*] SHA3-256:     " + purple + hashes['SHA3-256'])
 
-print(yellow+"-----------")
-print(white + "[!]" + lgreen + " Hash generado con éxito.")
-print(yellow + "~~~~~~~~~~~~~~")
+print(red+"================================================================================================================" + lgreen)
+print(lgreen + "    Hashes generados con éxito.")
 print(red+"================================================================================================================" + lgreen)
