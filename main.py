@@ -11,13 +11,9 @@ cyan = '\033[96m'
 purple = '\033[95m'
 white = '\033[97m'
 blue = '\033[94m'
-gray = '\033[90m'
-blink = '\033[90m'
-
-
 
 # Banner de la herramienta
-print(blue + bold+"""
+print(blue + bold + """
 ================================================================================================================""" + white + bold + """
 
 ██████╗ ███████╗██████╗ ███████╗███████╗    ██████╗ ███████╗                                           
@@ -32,7 +28,7 @@ print(blue + bold+"""
 ██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   ███████║██║  ██║██║   ██║██████╔╝███████║███████╗
 ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══██║██║  ██║██║   ██║██╔══██╗██╔══██║╚════██║
 ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ██║  ██║██████╔╝╚██████╔╝██║  ██║██║  ██║███████║
- ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 """ + blue + bold + """
 ================================================================================================================""")
 
@@ -40,22 +36,49 @@ print(blue + bold+"""
 hash_value = input(""" 
  |""" + blue + bold + """
  |""" + blue + bold + """
- └──"""+purple+"""#""" + cyan + """ Ingresa una cadena para generar Hash: """)
+ └──""" + purple + """#""" + cyan + """ Ingresa una cadena para generar Hash: """)
 
-print(yellow + bold + """
+
+# Opciones del menú
+print(white + bold + """
       
-      Procesando . . . . . . . . . . . . . . . . . . . . . 
+Selecciona el método de hashing:
+1. MD5
+2. SHA-256
+3. SHA3-256
+""")
 
-      """)
+
+
+# Solicitar selección de hash
+while True:
+    try:
+        selection = int(input(white + """Introduce el número correspondiente a tu opción: """))
+        if selection in [1, 2, 3]:
+            break
+        else:
+            print(red + "Opción inválida. Por favor elige 1, 2 o 3." + clear)
+    except ValueError:
+        print(red + "Por favor introduce un número válido." + clear)
+
+
+
+print(yellow + bold + """      
+Procesando . . . . . . . . . . . . . . . . . . . . . 
+""")
+
 
 # Llama a la función para generar los hashes
 hashes = generate_hashes(hash_value)
 
-# Muestra los resultados
-print(lgreen + "┌───────────[*] MD5:          " + purple + hashes['MD5'])
-print(lgreen + "|" + lgreen + "───────────[*] SHA256:       " + purple + hashes['SHA256'])
-print(lgreen + "|" + lgreen + "───────────[*] SHA3-256:     " + purple + hashes['SHA3-256'])
+print(lgreen + "================================================================================================================" + lgreen)
 
-print(red+"================================================================================================================" + lgreen)
-print(lgreen + "    Hashes generados con éxito.")
-print(red+"================================================================================================================" + lgreen)
+# Muestra el hash seleccionado
+if selection == 1:
+    print(lgreen + "Hash de tipo MD5 generado con éxito:    " + purple + hashes['MD5'])
+elif selection == 2:
+    print(lgreen + "Hash de tipo SHA-256 generado con éxito:    " + purple + hashes['SHA256'])
+elif selection == 3:
+    print(lgreen + "Hash de tipo SHA3-256 generado con éxito:    " + purple + hashes['SHA3-256'])
+
+print(lgreen + "================================================================================================================" + lgreen)
