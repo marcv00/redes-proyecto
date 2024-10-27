@@ -1,5 +1,6 @@
 # Importa las funciones necesarias
-from hashing import generate_hashes
+import hashlib
+from tkinter import Tk, filedialog
 
 # Colores utilizados en el terminal
 red = '\033[31m'
@@ -32,14 +33,22 @@ print(blue + bold + """
 """ + blue + bold + """
 ================================================================================================================""")
 
-# Solicitar string a hashear
-hash_value = input(""" 
- |""" + blue + bold + """
- |""" + blue + bold + """
- └──""" + purple + """#""" + cyan + """ Ingresa una cadena para generar Hash: """)
+# Mostrar mensaje antes de abrir el explorador de archivos
+print(white + bold + "Por favor, elija el archivo a hashear...")
 
+# Configuración para abrir el explorador de archivos (Tk necesaria para funcionalidad de filedialog)
+Tk().withdraw() # Retirar ventana de tkinter, ya que no es necesaria.
+file_path = filedialog.askopenfilename()
 
-# Opciones del menú
+# Comprobar si se ha seleccionado un archivo
+if not file_path:
+    print(red + "No se seleccionó ningún archivo. Saliendo del programa." + clear)
+    exit()
+
+# Mostrar la ruta del archivo seleccionado
+print(lgreen + f"Archivo seleccionado: {file_path}" + clear)
+
+# Opciones del menú de hashing
 print(white + bold + """
       
 Selecciona el método de hashing:
@@ -48,12 +57,10 @@ Selecciona el método de hashing:
 3. SHA3-256
 """)
 
-
-
 # Solicitar selección de hash
 while True:
     try:
-        selection = int(input(white + """Introduce el número correspondiente a tu opción: """))
+        selection = int(input(white + "Introduce el número correspondiente a tu opción: "))
         if selection in [1, 2, 3]:
             break
         else:
@@ -61,24 +68,18 @@ while True:
     except ValueError:
         print(red + "Por favor introduce un número válido." + clear)
 
+print(yellow + bold + "Procesando . . . . . . . . . . . . . . . . . . . . ." + clear)
 
+# Diccionario de algoritmos de hashing
+algorithms = {1: "md5", 2: "sha256", 3: "sha3_256"}
 
-print(yellow + bold + """      
-Procesando . . . . . . . . . . . . . . . . . . . . . 
-""")
+# Generar el hash del archivo seleccionado
+with open(file_path, "rb") as file:
+    digest = hashlib.file_digest(file, algorithms[selection])
 
-
-# Llama a la función para generar los hashes
-hashes = generate_hashes(hash_value)
-
+# Mostrar el resultado del hash
+hash_type = ["MD5", "SHA-256", "SHA3-256"][selection - 1]
+print(lgreen + "================================================================================================================" + lgreen)
+print(lgreen + f"Hash de tipo {hash_type} generado con éxito:    " + purple + digest.hexdigest())
 print(lgreen + "================================================================================================================" + lgreen)
 
-# Muestra el hash seleccionado
-if selection == 1:
-    print(lgreen + "Hash de tipo MD5 generado con éxito:    " + purple + hashes['MD5'])
-elif selection == 2:
-    print(lgreen + "Hash de tipo SHA-256 generado con éxito:    " + purple + hashes['SHA256'])
-elif selection == 3:
-    print(lgreen + "Hash de tipo SHA3-256 generado con éxito:    " + purple + hashes['SHA3-256'])
-
-print(lgreen + "================================================================================================================" + lgreen)
